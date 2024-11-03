@@ -3,6 +3,9 @@ const http = require("http");
 const fs = require("fs");
 const express = require("express");
 
+const multer = require("multer");
+const upload = multer();
+
 const app = express();
 
 program
@@ -57,6 +60,17 @@ app.get("/notes", (req, res) => {
     text: notes[noteName],
   }));
   res.status(200).send(notesList);
+});
+
+app.post("/write", (req, res) => {
+  const note = req.body.note_name;
+  const text = req.body.note;
+  if (notes[note]) {
+    res.status(400).send("Note already exists");
+  } else {
+    notes[note] = text;
+    res.status(201).send("Note created");
+  }
 });
 
 const server = http.createServer(app);
