@@ -51,6 +51,14 @@ app.delete("/notes/:note", (req, res) => {
   }
 });
 
+app.get("/notes", (req, res) => {
+  const notesList = Object.keys(notes).map((note) => ({
+    name: note,
+    text: notes[noteName],
+  }));
+  res.status(200).send(notesList);
+});
+
 const server = http.createServer(app);
 
 server.listen(port, host, () => {
