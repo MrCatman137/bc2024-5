@@ -28,6 +28,19 @@ app.get("/notes/:note", (req, res) => {
   res.status(404).send("Not found");
 });
 
+app.use(express.json());
+
+app.put("/notes/:note", (req, res) => {
+  const note = req.params.note;
+  const text = req.params.text;
+  if (notes[note]) {
+    notes[note] = text;
+    res.send("Note updated");
+  } else {
+    res.status(404).send("Not found");
+  }
+});
+
 const server = http.createServer(app);
 
 server.listen(port, host, () => {
