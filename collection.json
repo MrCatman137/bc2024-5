@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "52205f64-9fe0-4072-a1d3-757cbb756e1f",
+		"name": "Server for notes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38975582"
+	},
+	"item": [
+		{
+			"name": "notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3030/notes"
+			},
+			"response": []
+		},
+		{
+			"name": "notes/note_name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3030/notes/{{note_name}}"
+			},
+			"response": []
+		},
+		{
+			"name": "notes/note_name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Why are you looking at me? >:(\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3030/notes/{{note_name}}"
+			},
+			"response": []
+		},
+		{
+			"name": "notes/note_name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3030/notes/{{note_name}}"
+			},
+			"response": []
+		},
+		{
+			"name": "write",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "note_name",
+							"value": "qwerty",
+							"type": "text"
+						},
+						{
+							"key": "note",
+							"value": "famous password",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:3030/write"
+			},
+			"response": []
+		},
+		{
+			"name": "UploadForm.html",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3030/UploadForm.html"
+			},
+			"response": []
+		}
+	]
+}
