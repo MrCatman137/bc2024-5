@@ -1,12 +1,11 @@
 const { program } = require("commander");
 const http = require("http");
-const fs = require("fs");
+const path = require("path");
 const express = require("express");
 
-const multer = require("multer");
-const upload = multer();
-
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 
 program
   .requiredOption("-h, --host <host>", "server host")
@@ -71,6 +70,10 @@ app.post("/write", (req, res) => {
     notes[note] = text;
     res.status(201).send("Note created");
   }
+});
+
+app.get("/UploadForm.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "UploadForm.html"));
 });
 
 const server = http.createServer(app);
