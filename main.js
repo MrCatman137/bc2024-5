@@ -5,7 +5,8 @@ const express = require("express");
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+const multer = require("multer");
+const upload = multer();
 
 program
   .requiredOption("-h, --host <host>", "server host")
@@ -34,7 +35,7 @@ app.use(express.json());
 
 app.put("/notes/:note", (req, res) => {
   const note = req.params.note;
-  const text = req.params.text;
+  const text = req.body.text;
   if (notes[note]) {
     notes[note] = text;
     res.send("Note updated");
@@ -56,12 +57,12 @@ app.delete("/notes/:note", (req, res) => {
 app.get("/notes", (req, res) => {
   const notesList = Object.keys(notes).map((note) => ({
     name: note,
-    text: notes[noteName],
+    text: notes[note],
   }));
-  res.status(200).send(notesList);
+  res.json(notesList);
 });
 
-app.post("/write", (req, res) => {
+app.post("/write", upload.none(), (req, res) => {
   const note = req.body.note_name;
   const text = req.body.note;
   if (notes[note]) {
