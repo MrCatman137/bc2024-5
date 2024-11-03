@@ -41,6 +41,16 @@ app.put("/notes/:note", (req, res) => {
   }
 });
 
+app.delete("/notes/:note", (req, res) => {
+  const note = req.params.note;
+  if (notes[note]) {
+    delete notes[note];
+    res.send("Note deleted");
+  } else {
+    res.status(404).send("Not found");
+  }
+});
+
 const server = http.createServer(app);
 
 server.listen(port, host, () => {
