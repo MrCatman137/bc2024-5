@@ -2,6 +2,7 @@ const { program } = require("commander");
 const http = require("http");
 const path = require("path");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -34,11 +35,14 @@ app.get("/notes/:note", (req, res) => {
   }
 });
 
-app.use(express.text());
+//app.use(express.text());
+//app.use(bodyParser.raw());
+
+app.use(bodyParser.raw({ type: "text/plain" }));
 
 app.put("/notes/:note", (req, res) => {
   const note = req.params.note;
-  const text = req.body.text;
+  const text = req.body.toString();
   if (notes[note]) {
     notes[note] = text;
     res.send("Note updated");
