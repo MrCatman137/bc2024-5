@@ -17,6 +17,8 @@ program.parse(process.argv);
 
 const { host, port, cache } = program.opts();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Yepi");
 });
@@ -27,11 +29,12 @@ app.get("/notes/:note", (req, res) => {
   const note = req.params.note;
   if (notes[note]) {
     res.send(notes[note]);
+  } else {
+    res.status(404).send("Not found");
   }
-  res.status(404).send("Not found");
 });
 
-app.use(express.json());
+app.use(express.text());
 
 app.put("/notes/:note", (req, res) => {
   const note = req.params.note;
